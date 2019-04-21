@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<agent resources="resources" application="Tensorflow" type="MLDL" category="Job Submission"> 
+  <info>Submit a job: Python-GENERIC</info>  
+  <lastmodified>2019-04-21 00:36:51</lastmodified>  
+  <modifier>florin</modifier>  
+  <action id="submit" label="submit" result="text/xml">Python-GENERIC.cmd</action>  
+  <repository> 
+    <application id="application" state="expandEnable" info="Basic Job Options"> 
+      <option defaultValue="" id="JOB_NAME" label="Job Name" required="false" hidden="false" type="text" editable="true"/>  
+      <option defaultValue="powerai_env" id="PAIV_ENV" label="PowerAI Virtual Environment Name" required="false" hidden="false" type="text" editable="true" helpText="Your python PowerAI virtual environment name">powerai_env</option>  
+      <option defaultValue="" id="PYTHON_SCRIPT" label="Python Script" required="false" hidden="false" type="combined" editable="true" helpText="Select your input python script. Before run verify that you have all the need python prerequisites." style="simple" defaultFileType="any" allowUserInclude="false" use_include="true" fromFileType="any"/>  
+      <option defaultValue="" id="PYTHON_OPTIONS" label="Script Options" required="false" hidden="false" type="text" editable="true" helpText="Other python script input options required to run"/> 
+    </application>  
+    <application id="cluster" state="expandEnable" info="Advanced"> 
+      <option defaultValue="" id="label1" required="false" hidden="false" type="label" editable="true" helpText="Requirements"/>  
+      <option defaultValue="rusage[mem=32GB]" id="EXTRA_RES" label="Resource Requirement string" required="false" hidden="false" type="text" editable="true" helpText="Examples: a. Request 5GB of system-memory rusage[mem=5GB] b. Request 32GB of system-memory rusage[mem=32GB]">rusage[mem=5GB]</option>  
+      <option defaultValue="" id="label5" required="false" hidden="false" type="label" editable="true" helpText="Additional Job Options"/>  
+      <option defaultValue="normal" id="QUEUE" label="Submit to this Queue" required="false" hidden="false" type="list" editable="true"> 
+        <action id="queues">$GUI_CONFDIR/application/options/queue.sh normal</action> 
+      </option>  
+      <option defaultValue="ai_training" id="PRJ_NAME" label="Project" required="false" hidden="false" type="text" editable="true">mnist_train</option>  
+      <option defaultValue="-n 10 -gpu 'num=1:mode=exclusive_process' -W 1:00" id="EXTRA_PARAMS" label="Other bsub options" required="false" hidden="false" type="text" editable="true" helpText="Single node examples: a. alocate 10 Cores and 1 GPU for 1 hour: -n 10 -gpu 'num=1:mode=exclusive_process' -W 1:00 b. alocate 20 Cores and 2 GPU: -n 20 -gpu 'num=2:mode=exclusive_process' c. alocate 40 Cores and 4 GPU: -n 40 -gpu 'num=4:mode=exclusive_process'" unit="">-n 10 -gpu 'num=1:mode=exclusive_process' -W 1:00</option> 
+    </application>  
+    <application id="file" state="collapseEnable" info="Data"> 
+      <option defaultValue="stdout%J.txt" id="OUTPUT_FILE" label="Output file" required="false" hidden="false" type="simpleFile" editable="true">stdout%J.txt</option>  
+      <option defaultValue="stderr%J.txt" id="ERROR_FILE" label="Error file" required="false" hidden="false" type="simpleFile" editable="true">stderr%J.txt</option> 
+    </application>  
+    <application id="result" state="expandEnable" optionFor="client" info="Download Result"> 
+      <option defaultValue="" id="RESULT_LABEL" required="false" hidden="false" type="label" editable="true" optionFor="client" helpText="This section of the form is only visible to users in IBM Spectrum LSF Application Center Desktop Client"/>  
+      <option defaultValue="" id="DOWNLOAD_MATCH_FILES" label="Download files that match" required="false" hidden="false" type="text" width="30" editable="true" optionFor="client" helpText="Use a wildcard character(*) to specify file names to match. Separate multiple expressions with a comma(,). For example: abc*123.jou, *xyz.dat"/>  
+      <option defaultValue="NONE" id="COMPRESSION" label="Compression" required="true" hidden="false" type="list" width="20" editable="true" optionFor="client"> 
+        <option id="NONE" required="false" hidden="false" selected="true">NONE</option>  
+        <option id="zip" required="false" hidden="false">zip</option>  
+        <option id="tar.gz" required="false" hidden="false">tar.gz</option>  
+        <option id="tar.bz2" required="false" hidden="false">tar.bz2</option> 
+      </option> 
+    </application> 
+  </repository>  
+  <description/>  
+  <virtualfolder>
+    <path>/Submission Resources/Deep-Learning</path>
+    <desc>Scrips for Deep Learning</desc>
+  </virtualfolder>
+</agent>

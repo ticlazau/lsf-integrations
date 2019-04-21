@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<agent resources="resources" application="Tensorflow" type="MLDL" category="Job Submission"> 
+  <info>Submit a job: TensorFlow-Benchmark</info>  
+  <lastmodified>2019-04-21 01:17:03</lastmodified>  
+  <modifier>florin</modifier>  
+  <action id="submit" label="submit" result="text/xml">TensorFlow-Benchmark.cmd</action>  
+  <repository> 
+    <application id="application" state="expandEnable" info="Basic Job Options"> 
+      <option defaultValue="" id="JOB_NAME" label="Job Name" required="false" hidden="false" type="text" editable="true"/>  
+      <option defaultValue="256" id="TF_BATCH_SIZE" label="TensorFlow Batch Size" required="false" hidden="false" type="list" helpText="" unit=""> 
+        <option id="64" required="false" hidden="false">64</option>  
+        <option id="128" required="false" hidden="false">128</option>  
+        <option id="256" required="false" hidden="false" selected="true">256</option> 
+      </option>  
+      <option defaultValue="200" id="TF_NUM_BATCHES" label="TensorFlow No of Batches" required="false" hidden="false" type="text" helpText="Number of batches need to run the training" unit=""/>  
+      <option defaultValue="1" id="TF_NUM_WARMUP_BATCHES" label="Number of Warmup Batches" required="false" hidden="false" type="list" helpText="Number of TensorFlow warmup batches before starting the actual training." unit=""> 
+        <option id="1" required="false" hidden="false" selected="true">1</option>  
+        <option id="2" required="false" hidden="false">2</option>  
+        <option id="5" required="false" hidden="false">5</option>  
+        <option id="10" required="false" hidden="false">10</option> 
+      </option>  
+      <option defaultValue="NCHW" id="TF_DATA_FORMAT" label="Used Data Format" required="false" hidden="false" type="text" helpText="" unit=""/>  
+      <option defaultValue="sgd" id="TF_OPTIMIZER" label="TensorFlow Optimizer" required="false" hidden="false" type="text" helpText="Used TensorFlow Optimizer in training." unit=""/>  
+      <option defaultValue="replicated" id="TF_VARIABLE_UPDATE" label="TensorFlow Variable Update" required="false" hidden="false" type="list" helpText="Used TensorFlow Variable Update during the training." unit=""> 
+        <option id="replicated" required="false" hidden="false" selected="true">replicated</option>  
+        <option id="horovod" required="false" hidden="false">horovod</option>  
+        <option id="ddl" required="false" hidden="false">ddl</option> 
+      </option>  
+      <option defaultValue="1" id="TF_NUM_GPUS" label="Number of GPUs for benchmark" required="false" hidden="false" type="text" helpText="" unit=""/>  
+      <option defaultValue="alexnet" id="TF_MODEL" label="CNN Model" required="false" hidden="false" type="list" helpText="" unit=""> 
+        <option id="alexnet" required="false" hidden="false" selected="true">alexnet</option>  
+        <option id="resnet50" required="false" hidden="false">resnet50</option>  
+        <option id="resnet152" required="false" hidden="false">resnet152</option>  
+        <option id="vgg16" required="false" hidden="false">vgg16</option>  
+        <option id="inception3" required="false" hidden="false">inception3</option> 
+      </option>  
+      <option defaultValue="true" id="TF_USE_FP16" label="Single Precision" required="false" hidden="false" type="text" helpText="This value is true or false" unit=""/>  
+      <option defaultValue="anaconda3" id="PYTHON_VER" label="Python Version" required="false" hidden="false" type="list" helpText="Your installed Anaconda version" unit=""> 
+        <option id="anaconda2" required="false" hidden="false">anaconda2</option>  
+        <option id="anaconda3" required="false" hidden="false" selected="true">anaconda3</option> 
+      </option>  
+      <option defaultValue="powerai_env" id="PAIV_ENV" label="PowerAI Virtual Environment Name" required="false" hidden="false" type="text" editable="true" helpText="Your python PowerAI virtual environment name">powerai_env</option> 
+    </application>  
+    <application id="cluster" state="expandEnable" info="Advanced"> 
+      <option defaultValue="" id="label1" required="false" hidden="false" type="label" editable="true" helpText="Requirements"/>  
+      <option defaultValue="rusage[mem=32GB]" id="EXTRA_RES" label="Resource Requirement string" required="false" hidden="false" type="text" editable="true" helpText="Examples: a. Request 5GB of system-memory rusage[mem=5GB] b. Request 32GB of system-memory rusage[mem=32GB]">rusage[mem=5GB]</option>  
+      <option defaultValue="" id="label5" required="false" hidden="false" type="label" editable="true" helpText="Additional Job Options"/>  
+      <option defaultValue="normal" id="QUEUE" label="Submit to this Queue" required="false" hidden="false" type="list" editable="true"> 
+        <action id="queues">$GUI_CONFDIR/application/options/queue.sh normal</action> 
+      </option>  
+      <option defaultValue="ai_training" id="PRJ_NAME" label="Project" required="false" hidden="false" type="text" editable="true">mnist_train</option>  
+      <option defaultValue="-n 10 -gpu 'num=1:mode=exclusive_process' -W 1:00" id="EXTRA_PARAMS" label="Other bsub options" required="false" hidden="false" type="text" editable="true" helpText="Single node examples: a. alocate 10 Cores and 1 GPU for 1 hour: -n 10 -gpu 'num=1:mode=exclusive_process' -W 1:00 b. alocate 20 Cores and 2 GPU: -n 20 -gpu 'num=2:mode=exclusive_process' c. alocate 40 Cores and 4 GPU: -n 40 -gpu 'num=4:mode=exclusive_process'">-n 10 -gpu 'num=1:mode=exclusive_process' -W 1:00</option> 
+    </application>  
+    <application id="file" state="collapseEnable" info="Data"> 
+      <option defaultValue="stdout%J.txt" id="OUTPUT_FILE" label="Output file" required="false" hidden="false" type="simpleFile" editable="true">stdout%J.txt</option>  
+      <option defaultValue="stderr%J.txt" id="ERROR_FILE" label="Error file" required="false" hidden="false" type="simpleFile" editable="true">stderr%J.txt</option> 
+    </application>  
+    <application id="result" state="expandEnable" optionFor="client" info="Download Result"> 
+      <option defaultValue="" id="RESULT_LABEL" required="false" hidden="false" type="label" editable="true" optionFor="client" helpText="This section of the form is only visible to users in IBM Spectrum LSF Application Center Desktop Client"/>  
+      <option defaultValue="" id="DOWNLOAD_MATCH_FILES" label="Download files that match" required="false" hidden="false" type="text" width="30" editable="true" optionFor="client" helpText="Use a wildcard character(*) to specify file names to match. Separate multiple expressions with a comma(,). For example: abc*123.jou, *xyz.dat"/>  
+      <option defaultValue="NONE" id="COMPRESSION" label="Compression" required="true" hidden="false" type="list" width="20" editable="true" optionFor="client"> 
+        <option id="NONE" required="false" hidden="false" selected="true">NONE</option>  
+        <option id="zip" required="false" hidden="false">zip</option>  
+        <option id="tar.gz" required="false" hidden="false">tar.gz</option>  
+        <option id="tar.bz2" required="false" hidden="false">tar.bz2</option> 
+      </option> 
+    </application> 
+  </repository>  
+  <description/>  
+  <virtualfolder>
+    <path>/Submission Resources/Deep-Learning</path>
+    <desc>Scrips for Deep Learning</desc>
+  </virtualfolder>
+</agent>

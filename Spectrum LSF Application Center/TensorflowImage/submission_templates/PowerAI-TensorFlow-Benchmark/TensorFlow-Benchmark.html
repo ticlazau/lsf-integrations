@@ -1,0 +1,202 @@
+<div class="pageTitle">Submit a job: TensorFlow-Benchmark</div><div id="messageArea">&nbsp;</div><form id="jobForm" name="jobForm" method="post" enctype="multipart/form-data" ng-controller="JobSubmitCtrl">
+<input type="hidden" id="appName" value="MLDL"><input type="hidden" id="cmdName" value="TensorFlow-Benchmark.cmd">
+<fieldset id="applicationSet" class="expanded">
+<legend id="applicationHead" class="sectionTitle" onmouseout="changeLegend('applicationHead', 'out');return false" onmouseover="changeLegend('applicationHead', 'over');return false"><span onclick="toggleFieldset('applicationSet', 'applicationArea');return false">Basic Job Options</span></legend>
+<table id="applicationArea" style="border:0; width:100%;">
+<tr>
+<td class="formLabel">Job Name</td><td class="formValue"><input type="text" id="JOB_NAME" name="JOB_NAME" ng-model="JOB_NAME" ng-init="JOB_NAME=''"></td>
+</tr>
+<tr>
+<td class="formLabel">TensorFlow Batch Size&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="">?
+            </a></td><td class="formValue"><select id="TF_BATCH_SIZE" name="TF_BATCH_SIZE"><option value="">&lt;Use Default&gt;</option><option value="64">64</option><option value="128">128</option><option value="256" selected>256</option></select></td>
+</tr>
+<tr>
+<td class="formLabel">TensorFlow No of Batches&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="Number of batches need to run the training">?
+            </a></td><td class="formValue"><input type="text" id="TF_NUM_BATCHES" name="TF_NUM_BATCHES" ng-model="TF_NUM_BATCHES" ng-init="TF_NUM_BATCHES='200'"></td>
+</tr>
+<tr>
+<td class="formLabel">Number of Warmup Batches&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="Number of TensorFlow warmup batches before starting the actual training.">?
+            </a></td><td class="formValue"><select id="TF_NUM_WARMUP_BATCHES" name="TF_NUM_WARMUP_BATCHES"><option value="">&lt;Use Default&gt;</option><option value="1" selected>1</option><option value="2">2</option><option value="5">5</option><option value="10">10</option></select></td>
+</tr>
+<tr>
+<td class="formLabel">Used Data Format&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="">?
+            </a></td><td class="formValue"><input type="text" id="TF_DATA_FORMAT" name="TF_DATA_FORMAT" ng-model="TF_DATA_FORMAT" ng-init="TF_DATA_FORMAT='NCHW'"></td>
+</tr>
+<tr>
+<td class="formLabel">TensorFlow Optimizer&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="Used TensorFlow Optimizer in training.">?
+            </a></td><td class="formValue"><input type="text" id="TF_OPTIMIZER" name="TF_OPTIMIZER" ng-model="TF_OPTIMIZER" ng-init="TF_OPTIMIZER='sgd'"></td>
+</tr>
+<tr>
+<td class="formLabel">TensorFlow Variable Update&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="Used TensorFlow Variable Update during the training.">?
+            </a></td><td class="formValue"><select id="TF_VARIABLE_UPDATE" name="TF_VARIABLE_UPDATE"><option value="">&lt;Use Default&gt;</option><option value="replicated" selected>replicated</option><option value="horovod">horovod</option><option value="ddl">ddl</option></select></td>
+</tr>
+<tr>
+<td class="formLabel">Number of GPUs for benchmark&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="">?
+            </a></td><td class="formValue"><input type="text" id="TF_NUM_GPUS" name="TF_NUM_GPUS" ng-model="TF_NUM_GPUS" ng-init="TF_NUM_GPUS='1'"></td>
+</tr>
+<tr>
+<td class="formLabel">CNN Model&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="">?
+            </a></td><td class="formValue"><select id="TF_MODEL" name="TF_MODEL"><option value="">&lt;Use Default&gt;</option><option value="alexnet" selected>alexnet</option><option value="resnet50">resnet50</option><option value="resnet152">resnet152</option><option value="vgg16">vgg16</option><option value="inception3">inception3</option></select></td>
+</tr>
+<tr>
+<td class="formLabel">Single Precision&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="This value is true or false">?
+            </a></td><td class="formValue"><input type="text" id="TF_USE_FP16" name="TF_USE_FP16" ng-model="TF_USE_FP16" ng-init="TF_USE_FP16='true'"></td>
+</tr>
+<tr>
+<td class="formLabel">Python Version&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="Your installed Anaconda version">?
+            </a></td><td class="formValue"><select id="PYTHON_VER" name="PYTHON_VER"><option value="">&lt;Use Default&gt;</option><option value="anaconda2">anaconda2</option><option value="anaconda3" selected>anaconda3</option></select></td>
+</tr>
+<tr>
+<td class="formLabel">PowerAI Virtual Environment Name&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="Your python PowerAI virtual environment name">?
+            </a></td><td class="formValue"><input type="text" id="PAIV_ENV" name="PAIV_ENV" ng-model="PAIV_ENV" ng-init="PAIV_ENV='powerai_env'"></td>
+</tr>
+</table>
+</fieldset>
+<fieldset id="clusterSet" class="expanded">
+<legend id="clusterHead" class="sectionTitle" onmouseout="changeLegend('clusterHead', 'out');return false" onmouseover="changeLegend('clusterHead', 'over');return false"><span onclick="toggleFieldset('clusterSet', 'clusterArea');return false">Advanced</span></legend>
+<table id="clusterArea" style="border:0; width:100%;">
+<tr>
+<td colspan="2" class="formInfo">Requirements&nbsp;</td>
+</tr>
+<tr>
+<td class="formLabel">Resource Requirement string&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="Examples: a. Request 5GB of system-memory rusage[mem=5GB] b. Request 32GB of system-memory rusage[mem=32GB]">?
+            </a></td><td class="formValue"><input type="text" id="EXTRA_RES" name="EXTRA_RES" ng-model="EXTRA_RES" ng-init="EXTRA_RES='rusage[mem=32GB]'"></td>
+</tr>
+<tr>
+<td colspan="2" class="formInfo">Additional Job Options&nbsp;</td>
+</tr>
+<tr>
+<td class="formLabel">Submit to this Queue</td><td class="formValue"><input id="cmdVal_QUEUE" type="hidden" value="$GUI_CONFDIR/application/options/queue.sh normal"><select id="QUEUE" name="QUEUE" ng-controller="ScriptCtrl"><option value="">&lt;Use Default&gt;</option><option ng-repeat="item in dynaOptions" ng-selected="{{item.selected == true}}" value="{{item.value}}">{{item.name}}</option></select></td>
+</tr>
+<tr>
+<td class="formLabel">Project</td><td class="formValue"><input type="text" id="PRJ_NAME" name="PRJ_NAME" ng-model="PRJ_NAME" ng-init="PRJ_NAME='ai_training'"></td>
+</tr>
+<tr>
+<td class="formLabel">Other bsub options&nbsp;
+            <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="Single node examples: a. alocate 10 Cores and 1 GPU for 1 hour: -n 10 -gpu 'num=1:mode=exclusive_process' -W 1:00 b. alocate 20 Cores and 2 GPU: -n 20 -gpu 'num=2:mode=exclusive_process' c. alocate 40 Cores and 4 GPU: -n 40 -gpu 'num=4:mode=exclusive_process'">?
+            </a></td><td class="formValue"><input type="text" id="EXTRA_PARAMS" name="EXTRA_PARAMS" ng-model="EXTRA_PARAMS" ng-init="EXTRA_PARAMS='-n 10 -gpu 'num=1:mode=exclusive_process' -W 1:00'"></td>
+</tr>
+</table>
+</fieldset>
+<fieldset id="fileSet" class="expanded">
+<legend id="fileHead" class="sectionTitle" onmouseout="changeLegend('fileHead', 'out');return false" onmouseover="changeLegend('fileHead', 'over');return false"><span onclick="toggleFieldset('fileSet', 'fileArea');return false">Data</span></legend>
+<table id="fileArea" style="border:0; width:100%;">
+<tr>
+<td class="formLabel">Output file</td><td class="formValue"><input type="text" id="OUTPUT_FILE" name="OUTPUT_FILE" value="stdout%J.txt"><span class="btn-file">Browse...
+            <input type="file" id="sfile_OUTPUT_FILE" name="sfile_OUTPUT_FILE" multiple="true" onchange="angular.element(this).scope().showFile('sfile_OUTPUT_FILE')"></span></td>
+</tr>
+<tr>
+<td class="formLabel">Error file</td><td class="formValue"><input type="text" id="ERROR_FILE" name="ERROR_FILE" value="stderr%J.txt"><span class="btn-file">Browse...
+            <input type="file" id="sfile_ERROR_FILE" name="sfile_ERROR_FILE" multiple="true" onchange="angular.element(this).scope().showFile('sfile_ERROR_FILE')"></span></td>
+</tr>
+</table>
+</fieldset>
+<fieldset id="storeSet" class="expanded">
+<legend id="storeHead" class="sectionTitle" onmouseout="changeLegend('storeHead', 'out');return false" onmouseover="changeLegend('storeHead', 'over');return false"><span onclick="toggleFieldset('storeSet', 'storeArea');return false" style="width:80%">Download Result</span></legend>
+<table id="storeArea" style="border:0; width:100%;">
+<tr>
+<td class="formLabel"></td><td class="formValue"><input type="checkbox" id="autoStore" checked>Automatically download job results to a local directory</td>
+</tr>
+<tr>
+<td class="formLabel">Local directory</td><td class="formValue"><input type="text" id="show_store_dir" onclick="angular.element(this).scope().showDir()"><span style="display:none"><input type="file" id="store_dir" onchange="angular.element(this).scope().showFile('store_dir')" nwdirectory="nwdirectory"></span></td>
+</tr>
+<tr>
+<td class="formLabel">Download files that match&nbsp;
+	                <a href="#" class="helpOut" onclick="return false;" onmouseout="helpOut(this);return false" onmouseover="helpOn(this);return false" title="Use a wildcard character(*) to specify file names to match. Separate multiple expressions with a comma(,). For example: abc*123.jou, *xyz.dat">?
+	                </a></td><td class="formValue"><input type="text" id="DOWNLOAD_MATCH_FILES" name="DOWNLOAD_MATCH_FILES" ng-model="DOWNLOAD_MATCH_FILES" ng-init="DOWNLOAD_MATCH_FILES=''"></td>
+</tr>
+<tr>
+<td class="formLabel">Compression<font color="red">&nbsp;*</font></td><td class="formValue"><select id="COMPRESSION" name="COMPRESSION"><option value="NONE" selected>NONE</option><option value="zip">zip</option><option value="tar.gz">tar.gz</option><option value="tar.bz2">tar.bz2</option></select></td>
+</tr>
+</table>
+</fieldset>
+<fieldset id="alertSet" class="expanded">
+<legend id="alertHead" class="sectionTitle" onmouseout="changeLegend('alertHead', 'out');return false" onmouseover="changeLegend('alertHead', 'over');return false"><span onclick="toggleFieldset('alertSet', 'alertArea');return false" style="width:80%">Notification</span></legend>
+<table id="alertArea" style="border:0; width:100%;">
+<tr style="margin-bottom: 20px; display:block;">
+<td style="padding-left:60px;">
+            Specify when you want to be notified about your workload.
+          </td>
+</tr>
+<tr>
+<td style="padding-left:25px;font-weight: bold;"><input type="checkbox" id="rule_notify" name="rule_notify" onclick="toggleAlert(this, 'alertItems');">&nbsp;Notify me:</td>
+</tr>
+<tr id="alertItems">
+<td style="padding-left:60px;">
+<table style="boder:0; width:100%;">
+<tr>
+<td tabindex="0"><input type="checkbox" id="rule_start">&nbsp;When workload starts</td>
+</tr>
+<tr>
+<td tabindex="0"><input type="checkbox" id="rule_end">&nbsp;When workload ends</td>
+</tr>
+<tr>
+<td tabindex="0"><input type="checkbox" id="rule_fail">&nbsp;If workload exits</td>
+</tr>
+<tr>
+<td tabindex="0"><input type="checkbox" id="rule_suspend">&nbsp;If workload is suspended</td>
+</tr>
+<tr>
+<td tabindex="0"><input type="checkbox" id="rule_download">&nbsp;When workload's results are downloaded</td>
+</tr>
+<tr style="display:none">
+<td><input type="checkbox" id="via_mobile">&nbsp;Mobile</td>
+</tr>
+<tr style="display:none">
+<td><input type="checkbox" id="via_desktop">&nbsp;Desktop</td>
+</tr>
+<tr>
+<td tabindex="0" style="padding-top: 15px; font-weight: bold;">
+                  Notify Via:
+                </td>
+</tr>
+<tr>
+<td class="channel-box-primary" tooltip="Always enabled." tooltip-placement="bottom">
+<div tabindex="0" id="browserchannel" class="icon-toggle-div" style="width:100px; cursor: not-allowed;">
+<div class="inner">
+<span class="icon-browser expanded center"></span>&nbsp;<span class="center">Browser</span>
+</div>
+</div>
+</td><td class="channel-box-secondary">
+<div tabindex="0" id="emailchannel" class="icon-toggle-div" style="width:90px;" tooltip-html="emailtooltip" tooltip-placement="bottom">
+<div class="inner">
+<span class="icon-email expanded center"></span>&nbsp;<span class="center">Email</span>
+</div>
+</div>
+</td><td class="channel-box-secondary">
+<div tabindex="0" id="desktopchannel" class="icon-toggle-div" style="width:140px;">
+<div class="inner">
+<span class="icon-desktop-client expanded center"></span>&nbsp;<span class="center">Desktop Client</span>
+</div>
+</div>
+</td><td class="channel-box-secondary">
+<div tabindex="0" id="mobilechannel" class="icon-toggle-div" style="width:90px;">
+<div class="inner">
+<span class="icon-mobile expanded center"></span>&nbsp;<span class="center">Mobile</span>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</fieldset>
+<div class="btnArea">
+<input id="submitBtn" type="submit" class="btnStyle" value="Submit" ng-click="submit()">&nbsp;&nbsp;
+      <input id="revertBtn" type="reset" class="btnStyle" value="Revert" onclick="window.location.reload();">&nbsp;&nbsp;
+      <input id="closeBtn" type="button" class="btnStyle" value="Close" onclick="window.close();">
+</div>
+</form>
